@@ -1,0 +1,100 @@
+$ jupyter nbconvert --to notebook --execute Udaplay_02_solution_project.ipynb
+
+Loaded 'udaplay' with 20 games.
+UdaPlay agent ready.
+========================================================================
+Q: When was Pokémon Gold and Silver released?
+------------------------------------------------------------------------
+{
+  "tool": "retrieve_game",
+  "arguments": "{\"query\":\"Pokemon Gold and Silver release date Game Boy Color\"}"
+}
+{
+  "tool_result_for": "retrieve_game",
+  "snippet": "[{\"Platform\": \"Game Boy Color\", \"Name\": \"Pokémon Gold and Silver\", \"YearOfRelease\": 1999, \"Description\": \"The second generation of Pokémon games, introducing new Pokémon and a real-time clock system.\", \"Publisher\": \"Nintendo\", \"Genre\": \"RPG\", \"similarity\": 0.811}, {\"Platform\": \"Game Boy Color\", \"Name\": \"Pokémon Crystal\""
+}
+{
+  "tool": "evaluate_retrieval",
+  "arguments": "{\"question\":\"When was Pokemon Gold and Silver released?\",\"retrieved_docs\":[{\"Platform\":\"Game Boy Color\",\"Name\":\"Pokemon Gold and Silver\",\"YearOfRelease\":1999,\"similarity\":0.811}]}"
+}
+{
+  "tool_result_for": "evaluate_retrieval",
+  "snippet": "{\"useful\": true, \"description\": \"The retrieved document explicitly states that Pokemon Gold and Silver was released in 1999 for the Game Boy Color, which directly answers the user's question.\"}"
+}
+------------------------------------------------------------------------
+FINAL ANSWER:
+Pokémon Gold and Silver was released in 1999 for the Game Boy Color.
+
+Source: Pokémon Gold and Silver (Game Boy Color, 1999) — UdaPlay vector DB.
+Confidence: high.
+
+Total tokens used: 1812
+========================================================================
+========================================================================
+Q: Which one was the first 3D platformer Mario game?
+------------------------------------------------------------------------
+{
+  "tool": "retrieve_game",
+  "arguments": "{\"query\":\"first 3D platformer Mario game Nintendo 64\"}"
+}
+{
+  "tool_result_for": "retrieve_game",
+  "snippet": "[{\"Platform\": \"Nintendo 64\", \"Name\": \"Super Mario 64\", \"YearOfRelease\": 1996, \"Description\": \"A revolutionary 3D platformer that set new standards for the genre, featuring Mario's quest to rescue Princess Peach.\", \"Publisher\": \"Nintendo\", \"Genre\": \"Platformer\", \"similarity\": 0.806}, ..."
+}
+{
+  "tool": "evaluate_retrieval",
+  "arguments": "{\"question\":\"Which one was the first 3D platformer Mario game?\",\"retrieved_docs\":[{\"Name\":\"Super Mario 64\",\"YearOfRelease\":1996,\"Description\":\"revolutionary 3D platformer\"}]}"
+}
+{
+  "tool_result_for": "evaluate_retrieval",
+  "snippet": "{\"useful\": true, \"description\": \"Super Mario 64 (1996) is the first 3D platformer Mario game; the description explicitly calls it a revolutionary 3D platformer.\"}"
+}
+------------------------------------------------------------------------
+FINAL ANSWER:
+Super Mario 64, released in 1996 for the Nintendo 64, was the first 3D platformer in the Mario series. It set the template for 3D platformers with Mario's quest to rescue Princess Peach.
+
+Source: Super Mario 64 (Nintendo 64, 1996) — UdaPlay vector DB.
+Confidence: high.
+
+Total tokens used: 1647
+========================================================================
+========================================================================
+Q: Was Mortal Kombat X released for PlayStation 5?
+------------------------------------------------------------------------
+{
+  "tool": "retrieve_game",
+  "arguments": "{\"query\":\"Mortal Kombat X PlayStation 5 release\"}"
+}
+{
+  "tool_result_for": "retrieve_game",
+  "snippet": "[{\"Platform\": \"PlayStation 4\", \"Name\": \"Mortal Kombat X\", \"YearOfRelease\": 2015, \"Description\": \"A fighting game featuring brutal combat and a new generation of fighters in the Mortal Kombat universe.\", \"Publisher\": \"NetherRealm Studios\", \"Genre\": \"Fighting\", \"similarity\": 0.667}]"
+}
+{
+  "tool": "evaluate_retrieval",
+  "arguments": "{\"question\":\"Was Mortal Kombat X released for PlayStation 5?\",\"retrieved_docs\":[{\"Platform\":\"PlayStation 4\",\"Name\":\"Mortal Kombat X\",\"YearOfRelease\":2015}]}"
+}
+{
+  "tool_result_for": "evaluate_retrieval",
+  "snippet": "{\"useful\": false, \"description\": \"The retrieved document only confirms a PlayStation 4 release in 2015. It does not say whether the game was later ported to PlayStation 5, so a web search is needed.\"}"
+}
+{
+  "tool": "game_web_search",
+  "arguments": "{\"question\":\"Was Mortal Kombat X released for PlayStation 5?\"}"
+}
+{
+  "tool_result_for": "game_web_search",
+  "snippet": "[{\"title\": \"Mortal Kombat X - Wikipedia\", \"url\": \"https://en.wikipedia.org/wiki/Mortal_Kombat_X\", \"content\": \"Mortal Kombat X was released on April 14, 2015 for PlayStation 4, Xbox One, and Microsoft Windows; it was never officially released for PlayStation 5, but is playable on PS5 via backwards compatibility.\", \"score\": 0.91}]"
+}
+------------------------------------------------------------------------
+FINAL ANSWER:
+No — Mortal Kombat X was never released natively for PlayStation 5. It launched in April 2015 for PlayStation 4, Xbox One, and Microsoft Windows. PS5 owners can still play it through backwards compatibility, but there is no native PS5 version.
+
+Sources:
+- Mortal Kombat X (PlayStation 4, 2015) — UdaPlay vector DB.
+- https://en.wikipedia.org/wiki/Mortal_Kombat_X — Tavily web search.
+
+Confidence: high.
+
+Total tokens used: 2419
+========================================================================
+Saved performance chart to outputs/agent_performance.png

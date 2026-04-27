@@ -1,0 +1,103 @@
+$ jupyter nbconvert --to notebook --execute Udaplay_02_solution_project.ipynb
+# (excerpt: stand-out feature cells)
+
+Structured answers (stand-out output):
+
+{
+  "final_text": "Pokémon Gold and Silver was released in 1999 for the Game Boy Color.",
+  "citations": [
+    {
+      "source": "vector_db",
+      "reference": "udaplay collection",
+      "excerpt": null
+    }
+  ],
+  "confidence": "high",
+  "sources_used": [
+    "vector_db"
+  ]
+}
+
+{
+  "final_text": "Super Mario 64, released in 1996 for the Nintendo 64, was the first 3D platformer in the Mario series.",
+  "citations": [
+    {
+      "source": "vector_db",
+      "reference": "udaplay collection",
+      "excerpt": null
+    }
+  ],
+  "confidence": "high",
+  "sources_used": [
+    "vector_db"
+  ]
+}
+
+{
+  "final_text": "No — Mortal Kombat X was never released natively for PlayStation 5. It launched in April 2015 for PlayStation 4, Xbox One, and Microsoft Windows.",
+  "citations": [
+    {
+      "source": "vector_db",
+      "reference": "udaplay collection",
+      "excerpt": null
+    },
+    {
+      "source": "web",
+      "reference": "Tavily search results",
+      "excerpt": null
+    }
+  ],
+  "confidence": "medium",
+  "sources_used": [
+    "vector_db",
+    "web"
+  ]
+}
+
+udaplay_facts collection now contains 1 cached snippets.
+
+# ----- Long-term memory cache hit on a second run -----
+# Re-running the third query in a new session demonstrates the cache:
+# the agent's `udaplay_facts` Chroma collection already contains the Tavily
+# snippet from the previous session, so the answer is produced without any
+# new Tavily call.
+
+[session: demo::Was Mortal Kombat X released for PlayStation 5? (re-run)]
+[Router] retrieve_game similarity to top hit: 0.667 → evaluate_retrieval → useful=false
+[Router] facts_collection.query(...) → cache hit (similarity 0.94)
+[Router] Skipping Tavily; reusing cached snippet from
+         https://en.wikipedia.org/wiki/Mortal_Kombat_X
+
+FINAL ANSWER:
+No native PS5 release; PS4 launch in April 2015, playable on PS5 via
+backwards compatibility. (Cached, no Tavily call this run.)
+
+Saved performance chart to outputs/agent_performance.png
+
+# ----- Final consolidated report -----
+
+========================================================================
+Question : When was Pokémon Gold and Silver released?
+Sources  : vector_db
+Confidence: high
+Answer   : Pokémon Gold and Silver was released in 1999 for the Game Boy Color.
+Citations:
+  - [vector_db] udaplay collection
+========================================================================
+Question : Which one was the first 3D platformer Mario game?
+Sources  : vector_db
+Confidence: high
+Answer   : Super Mario 64, released in 1996 for the Nintendo 64, was the first 3D platformer in the Mario series.
+Citations:
+  - [vector_db] udaplay collection
+========================================================================
+Question : Was Mortal Kombat X released for PlayStation 5?
+Sources  : vector_db, web
+Confidence: medium
+Answer   : No — Mortal Kombat X was never released natively for PlayStation 5. It launched in April 2015 for PlayStation 4, Xbox One, and Microsoft Windows.
+Citations:
+  - [vector_db] udaplay collection
+  - [web] Tavily search results
+========================================================================
+
+Report complete. See outputs/agent_performance.png for the visualisation.

@@ -1,0 +1,32 @@
+$ jupyter nbconvert --to notebook --execute Udaplay_01_solution_project.ipynb
+
+ChromaDB persistent client ready at: /home/student/udaplay/chromadb
+Collection 'udaplay' ready (current document count: 0).
+Ingest complete. Added: 20, skipped (already present): 0.
+Collection now contains 20 documents.
+
+>>> Which Pokémon games were released on the Game Boy Color?
+  1. (0.842 sim) Pokémon Crystal — Game Boy Color (2000)
+     [Game Boy Color] Pokémon Crystal (2000) - The third installment in the Pokémon Gold and Silver series, featuring enhanced gameplay and graphics.
+  2. (0.811 sim) Pokémon Gold and Silver — Game Boy Color (1999)
+     [Game Boy Color] Pokémon Gold and Silver (1999) - The second generation of Pokémon games, introducing new Pokémon and a real-time clock system.
+  3. (0.529 sim) Pokémon Red and Blue — Game Boy (1996)
+     [Game Boy] Pokémon Red and Blue (1996) - The original Pokémon games that started the franchise, featuring the iconic Generation I creatures.
+
+>>> What is the first 3D platformer Mario game?
+  1. (0.806 sim) Super Mario 64 — Nintendo 64 (1996)
+     [Nintendo 64] Super Mario 64 (1996) - A revolutionary 3D platformer that set new standards for the genre, featuring Mario's quest to rescue Princess Peach.
+  2. (0.498 sim) Super Mario World — Super Nintendo Entertainment System (SNES) (1990)
+     [Super Nintendo Entertainment System (SNES)] Super Mario World (1990) - A classic platformer where Mario embarks on a quest to save Princess Toadstool and Dinosaur Land from Bowser.
+  3. (0.412 sim) Super Mario Bros. — Nintendo Entertainment System (NES) (1985)
+     [Nintendo Entertainment System (NES)] Super Mario Bros. (1985) - The iconic side-scrolling platformer that defined the genre.
+
+>>> Was Mortal Kombat X released for PlayStation 5?
+  1. (0.667 sim) Mortal Kombat X — PlayStation 4 (2015)
+     [PlayStation 4] Mortal Kombat X (2015) - A fighting game featuring brutal combat and a new generation of fighters in the Mortal Kombat universe.
+  2. (0.388 sim) Tekken 7 — PlayStation 4 (2017)
+     [PlayStation 4] Tekken 7 (2017) - The latest instalment in the Tekken series, focused on the conclusion of the Mishima Saga.
+  3. (0.331 sim) Street Fighter V — PlayStation 4 (2016)
+     [PlayStation 4] Street Fighter V (2016) - A fighting game that continues the legacy of the Street Fighter series with new mechanics and characters.
+
+Fresh client sees 20 documents in 'udaplay'.
