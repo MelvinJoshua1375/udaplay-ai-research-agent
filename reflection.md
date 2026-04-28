@@ -33,11 +33,38 @@
   internal catalogue from learnings yet (the `udaplay_facts` cache is web
   snippets, not curated game records).
 
-## One concrete future improvement
+## v2 extension — closed-loop learning (implemented)
 
-Add a fourth tool, `record_game_fact(game_record: dict)`, that the agent can
-call after a confident web search to write a properly-typed game JSON into
-`games/` and re-embed it into the main `udaplay` collection. That closes the
-learning loop: every web fallback the agent confidently resolves graduates
-into a first-class catalogue entry, and over time the proportion of queries
-served by the local (free, fast) vector DB rises towards 100%.
+The original "one concrete future improvement" was a fourth tool,
+`record_game_fact`, that closes the learning loop by turning confident web
+findings into permanent catalogue entries. **This is now implemented and
+demonstrated.**
+
+The v2 agent is registered with four tools instead of three:
+`retrieve_game`, `evaluate_retrieval`, `game_web_search`, **`record_game_fact`**.
+The system prompt instructs the agent to call `record_game_fact` exactly once
+after a confident `game_web_search` answer about a specific game that is not
+yet in the catalogue. The tool validates the record against the
+`GameRecord` Pydantic schema, writes a new `games/NNN.json` file with the
+next sequential id, and adds the record to the live `udaplay` Chroma
+collection.
+
+Demo evidence (Notebook 2, cells 19, 23, 25): a fifth query
+("Tell me about Astro Bot, the 2024 PlayStation 5 platformer") triggers the
+full closed-loop sequence — retrieve → evaluate (useful=false) → web search
+→ `record_game_fact` (status=ok, id=021, collection_count=21) — and a sixth
+query ("When was Astro Bot released, and on which platform?") is answered
+**locally** out of the just-extended catalogue, with no web search.
+
+## One new improvement to pursue next
+
+Add a periodic **catalogue-deduplication / re-embedding pass**. Right now
+`record_game_fact` only refuses ids that already exist on disk, but it does
+not check whether a near-duplicate game (different platform, slightly
+different name) is already in the collection. A scheduled job that:
+
+  1. Clusters the catalogue's embeddings,
+  2. Flags pairs whose cosine similarity is above a learnt threshold,
+  3. Asks an LLM judge to merge or distinguish the candidates,
+
+would keep the catalogue coherent as the agent grows it autonomously.

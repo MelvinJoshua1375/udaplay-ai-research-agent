@@ -38,13 +38,14 @@ persistent ChromaDB collection called `udaplay`. The notebook ends with a
 semantic-search demo against the collection.
 
 **Part 2 — Agent.** Re-opens the same persistent collection and wraps it
-behind three `@tool` functions:
+behind four `@tool` functions:
 
 | Tool | Purpose |
 |---|---|
 | `retrieve_game(query)` | Top-5 semantic search over the local catalogue. |
 | `evaluate_retrieval(question, retrieved_docs)` | LLM judge that returns `{useful, description}` to gate the next step. |
 | `game_web_search(question)` | Tavily fallback; returns top-3 web snippets. |
+| `record_game_fact(...)` *(v2 extension)* | After a confident web answer about a game not yet in the catalogue, validates the record against `GameRecord` and writes it to `games/NNN.json` plus the live Chroma collection — closing the learning loop. |
 
 The `Agent` class from `lib/agents.py` runs an `LLM ↔ tools` state machine:
 on each turn it sends the conversation to the model, executes any tool calls
@@ -53,8 +54,21 @@ the model decides no further tool calls are needed. The system prompt
 explicitly directs the agent to call `retrieve_game` first, gate on
 `evaluate_retrieval`, and only then fall back to `game_web_search`.
 
-The notebook then runs the agent on three rubric-prescribed questions and
-emits four stand-out artefacts:
+The notebook then runs the agent on six demo questions:
+
+  1. Pokémon Gold/Silver release year (vector-DB only).
+  2. First 3D Mario platformer (vector-DB only).
+  3. Mortal Kombat X on PS5? (vector-DB → judge says insufficient → web).
+  4. *"Of the three games we just discussed, which one was released earliest?"*
+     — answered from prior turns alone, with **zero tool calls**, proving
+     session-level statefulness.
+  5. *"Tell me about Astro Bot, the 2024 PlayStation 5 platformer."* —
+     vector-DB miss → web search → `record_game_fact` writes Astro Bot into
+     `games/021.json` and into the live Chroma collection (v2 closed-loop).
+  6. *"When was Astro Bot released, and on which platform?"* — now answered
+     **locally** from the just-extended catalogue, with no web search.
+
+…and emits four stand-out artefacts:
 
 1. five extra game records (`games/016.json … 020.json`),
 2. a `udaplay_facts` Chroma collection that caches successful web-search
@@ -120,7 +134,7 @@ Expect Part 2 to take roughly 1–2 minutes against `gpt-4o-mini`.
 |---|---|
 | **RAG**: load and process the local game data into a persistent vector DB with embeddings | Notebook 1, cells under "VectorDB Instance" / "Collection" / "Add documents" |
 | **RAG**: notebook demonstrates the vector DB can be queried for semantic search | Notebook 1, "Demonstrate semantic search" cell |
-| **Agent**: ≥3 tools, each integrated as a function, decorated, and registered | Notebook 2, `retrieve_game`, `evaluate_retrieval`, `game_web_search` |
+| **Agent**: ≥3 tools, each integrated as a function, decorated, and registered | Notebook 2, `retrieve_game`, `evaluate_retrieval`, `game_web_search`, plus `record_game_fact` (v2) |
 | **Agent**: first answers with internal knowledge, evaluates, falls back to web | System prompt + agent loop in `Agent` instantiation cell |
 | **Agent**: stateful agent class managing conversation state and tool usage | Reuses `lib.agents.Agent`, which uses `lib.state_machine.StateMachine` and `lib.memory.ShortTermMemory` |
 | **Agent**: report performance with example queries; output includes reasoning, tool usage, final answer, and citations | Notebook 2 "Invoke" cell + final-report cell + `outputs/output_part2_agent.txt` |
