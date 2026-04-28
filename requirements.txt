@@ -4,5 +4,10 @@ pydantic>=2.11.3
 python-dotenv>=1.1.0
 tavily-python>=0.5.4
 matplotlib>=3.7
+typing-extensions>=4.0
+# pdfplumber is imported transitively by lib/loaders.py (the starter code's
+# PDF loader). The notebooks don't load any PDFs, but the import chain
+# lib.agents -> lib.memory -> lib.vector_db -> lib.loaders requires it.
+pdfplumber>=0.10
 jupyter
 ipykernel
