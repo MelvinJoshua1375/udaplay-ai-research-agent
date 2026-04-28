@@ -6,55 +6,44 @@ Structured answers (stand-out output):
 {
   "final_text": "Pokémon Gold and Silver was released in 1999 for the Game Boy Color.",
   "citations": [
-    {
-      "source": "vector_db",
-      "reference": "udaplay collection",
-      "excerpt": null
-    }
+    {"source": "vector_db", "reference": "udaplay collection", "excerpt": null}
   ],
   "confidence": "high",
-  "sources_used": [
-    "vector_db"
-  ]
+  "sources_used": ["vector_db"]
 }
 
 {
   "final_text": "Super Mario 64, released in 1996 for the Nintendo 64, was the first 3D platformer in the Mario series.",
   "citations": [
-    {
-      "source": "vector_db",
-      "reference": "udaplay collection",
-      "excerpt": null
-    }
+    {"source": "vector_db", "reference": "udaplay collection", "excerpt": null}
   ],
   "confidence": "high",
-  "sources_used": [
-    "vector_db"
-  ]
+  "sources_used": ["vector_db"]
 }
 
 {
   "final_text": "No — Mortal Kombat X was never released natively for PlayStation 5. It launched in April 2015 for PlayStation 4, Xbox One, and Microsoft Windows.",
   "citations": [
-    {
-      "source": "vector_db",
-      "reference": "udaplay collection",
-      "excerpt": null
-    },
-    {
-      "source": "web",
-      "reference": "Tavily search results",
-      "excerpt": null
-    }
+    {"source": "vector_db", "reference": "udaplay collection", "excerpt": null},
+    {"source": "web", "reference": "Tavily search results", "excerpt": null}
   ],
   "confidence": "medium",
-  "sources_used": [
-    "vector_db",
-    "web"
-  ]
+  "sources_used": ["vector_db", "web"]
+}
+
+{
+  "final_text": "Of the three games we just discussed, Super Mario 64 (Nintendo 64, 1996) was released earliest, followed by Pokémon Gold and Silver (Game Boy Color, 1999) and finally Mortal Kombat X (PlayStation 4, 2015).",
+  "citations": [],
+  "confidence": "high",
+  "sources_used": []
 }
 
 udaplay_facts collection now contains 1 cached snippets.
+
+# The fourth demo query (`"Of the three games we just discussed, which one
+# was released earliest?"`) is answered without invoking any tool — proof
+# that the Agent's ShortTermMemory is correctly carrying conversation
+# context across turns within a single session.
 
 # ----- Long-term memory cache hit on a second run -----
 # Re-running the third query in a new session demonstrates the cache:
